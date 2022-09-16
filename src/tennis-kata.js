@@ -3,4 +3,10 @@ module.exports = class TennisPlayer {
         this.name = name;
         this.score = [];
     }
+
+    getScore(playerName){
+        if(playerName === this.name){
+            return this.score;
+        }
+    }
 }

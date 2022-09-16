@@ -29,4 +29,15 @@ describe('tennis game', () => {
 
         expect(testTennisPlayer).toEqual({name: 'playerTwo', score: []});
     });
+
+    it("returns player's score when providided a name", () => {
+        let testTennisPlayer = new TennisPlayer('foo');
+
+        let result = testTennisPlayer.getScore('foo');
+        let expectedResult = [];
+
+        expect(result).toEqual(expectedResult);
+
+    });
+    
 });
