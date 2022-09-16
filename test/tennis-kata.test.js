@@ -16,28 +16,42 @@
 // If at least three points have been scored by each side and a player has one more point than his opponent, the score of the game is “advantage” for the player in the lead.
 
 const TennisPlayer = require('../src/tennis-kata');
+const Game = require('../src/game');
 
 describe('tennis game', () => {
-    it('creates a tennis player with name playerOne', () => {
-        let testTennisPlayer = new TennisPlayer('playerOne'); 
+    describe('creates TennisPlayer class', () => {
 
-        expect(testTennisPlayer).toEqual({name: "playerOne", score: []});
-    });
-
-    it('creates a tennis player with name & score property', () => {
-        let testTennisPlayer = new TennisPlayer('playerTwo');
-
-        expect(testTennisPlayer).toEqual({name: 'playerTwo', score: []});
-    });
-
-    it("returns player's score when providided a name", () => {
-        let testTennisPlayer = new TennisPlayer('foo');
-
-        let result = testTennisPlayer.getScore('foo');
-        let expectedResult = [];
-
-        expect(result).toEqual(expectedResult);
-
-    });
+        it('creates a tennis player with name playerOne', () => {
+            let testTennisPlayer = new TennisPlayer('playerOne'); 
     
+            expect(testTennisPlayer).toEqual({name: "playerOne", score: []});
+        });
+    
+        it('creates a tennis player with name & score property', () => {
+            let testTennisPlayer = new TennisPlayer('playerTwo');
+    
+            expect(testTennisPlayer).toEqual({name: 'playerTwo', score: []});
+        });
+    
+        it("returns player's score when providided a name", () => {
+            let testTennisPlayer = new TennisPlayer('foo');
+    
+            let result = testTennisPlayer.getScore('foo');
+            let expectedResult = [];
+    
+            expect(result).toEqual(expectedResult);
+        });    
+    });
+
+    describe('tests game class', () => {
+        it('creates a new game with no players', () => {
+            let newGame = new Game();
+
+            let result = newGame;
+
+            expect(result).toEqual({players: {}});
+
+            
+        })
+    });
 });
