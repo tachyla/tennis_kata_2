@@ -21,6 +21,12 @@ describe('tennis game', () => {
     it('creates a tennis player with name playerOne', () => {
         let testTennisPlayer = new TennisPlayer('playerOne'); 
 
-        expect(testTennisPlayer).toEqual({name: "playerOne"});
+        expect(testTennisPlayer).toEqual({name: "playerOne", score: []});
+    });
+
+    it('creates a tennis player with name & score property', () => {
+        let testTennisPlayer = new TennisPlayer('playerTwo');
+
+        expect(testTennisPlayer).toEqual({name: 'playerTwo', score: []});
     });
 });
