@@ -49,16 +49,16 @@ describe('tennis game', () => {
 
             let result = newGame.players; 
 
-            expect(result).toEqual({});            
+            expect(result).toEqual([]);            
         });
 
         it('adds 1 player to game', () => {
             let newGame = new Game (); 
             const add_player = newGame.addPlayer('bar');
 
-            let result = newGame.players = { player_1: 'bar'};
+            let result = newGame.players;
 
-            expect(result).toEqual( {player_1: 'bar'});
+            expect(result).toEqual([{player: 'bar'}]);
         });
 
         it('adds 2 players to game', () => {
@@ -68,7 +68,7 @@ describe('tennis game', () => {
            
            let result = newGame.players;
            
-           const expectedResult = {player_1: 'bar', player_2: 'bash'};
+           const expectedResult = [{player: 'bar'}, {player: 'bash'}];
 
            expect(result).toEqual(expectedResult);
         });
