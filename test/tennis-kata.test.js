@@ -60,5 +60,17 @@ describe('tennis game', () => {
 
             expect(result).toEqual( {player_1: 'bar'});
         });
+
+        it('adds 2 players to game', () => {
+            let newGame = new Game();
+           const add_player1 = newGame.addPlayer('bar');
+           const add_player2 =newGame.addPlayer('bash');
+           
+           let result = newGame.players;
+           
+           const expectedResult = {player_1: 'bar', player_2: 'bash'};
+
+           expect(result).toEqual(expectedResult);
+        });
     });
 });
