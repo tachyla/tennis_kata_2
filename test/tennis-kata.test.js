@@ -17,6 +17,7 @@
 
 const TennisPlayer = require('../src/tennis-kata');
 const Game = require('../src/game');
+// const { it } = require('node:test');
 
 describe('tennis game', () => {
     describe('creates TennisPlayer class', () => {
@@ -64,13 +65,24 @@ describe('tennis game', () => {
         it('adds 2 players to game', () => {
             let newGame = new Game();
            const add_player1 = newGame.addPlayer('bar');
-           const add_player2 =newGame.addPlayer('bash');
+           const add_player2 = newGame.addPlayer('bash');
            
            let result = newGame.players;
            
            const expectedResult = [{player: 'bar'}, {player: 'bash'}];
 
            expect(result).toEqual(expectedResult);
+        });
+
+        it('throws error when adding third player', () => {
+            let newGame = new Game();
+
+            const add_player1 = newGame.addPlayer('bar');
+            const add_player2 = newGame.addPlayer('bash');
+            let error_player3 = newGame.addPlayer('foo');
+
+            expect(error_player3).toEqual('Error: cannot add a third player');
+
         });
     });
 });
