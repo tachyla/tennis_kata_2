@@ -47,11 +47,18 @@ describe('tennis game', () => {
         it('creates a new game with no players', () => {
             let newGame = new Game();
 
-            let result = newGame;
+            let result = newGame.players; 
 
-            expect(result).toEqual({players: {}});
+            expect(result).toEqual({});            
+        });
 
-            
-        })
+        it('adds 1 player to game', () => {
+            let newGame = new Game (); 
+            const add_player = newGame.addPlayer('bar');
+
+            let result = newGame.players = { player_1: 'bar'};
+
+            expect(result).toEqual( {player_1: 'bar'});
+        });
     });
 });
