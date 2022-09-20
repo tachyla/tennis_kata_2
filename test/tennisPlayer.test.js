@@ -1,5 +1,4 @@
-const TennisPlayer = require('../src/tennis-kata');
-const Game = require('../src/game');
+const TennisPlayer = require('../src/tennisPlayer');
     
     describe('creates TennisPlayer class', () => {
 
