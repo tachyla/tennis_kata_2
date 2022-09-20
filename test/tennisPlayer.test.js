@@ -7,16 +7,6 @@ const TennisPlayer = require('../src/tennisPlayer');
     
             expect(testTennisPlayer).toEqual({name: "playerOne", score: []});
         });
-        
-        //negative case : player with no name passed in 
-        it('throws error when called without passing a name', () => {
-            let testTennisPlayer = new TennisPlayer();
-
-            let actualResult = testTennisPlayer.name;  
-            let expectedResult = undefined;
-            
-            expect(actualResult).toEqual(expectedResult);
-        });
 
         it('creates a tennis player with name & score property', () => {
             let testTennisPlayer = new TennisPlayer('playerTwo');
@@ -32,4 +22,13 @@ const TennisPlayer = require('../src/tennisPlayer');
     
             expect(result).toEqual(expectedResult);
         });    
+
+        //negative case : player with no name passed in 
+        it('throws error when called without passing a name', () => {
+            let testTennisPlayer = new TennisPlayer();
+
+            expect(() => {
+                new TennisPlayer();
+            }).toThrowError('Tennis Player requires a name');
+        });
     });
