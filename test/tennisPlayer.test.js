@@ -23,12 +23,10 @@ const TennisPlayer = require('../src/tennisPlayer');
             expect(result).toEqual(expectedResult);
         });    
 
-            //negative case : player with no name passed in 
-            it('throws error when called without passing a name', () => {
-    
-                expect(() => {
-                    new TennisPlayer();
-                }).toThrow('Tennis Player requires a name');
+        it('throws error when called without passing a name', () => {
 
-            });
+            expect(() => {
+                new TennisPlayer();
+            }).toThrow('Tennis Player requires a name');
+        });
     });
