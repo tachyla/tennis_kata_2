@@ -8,5 +8,6 @@ module.exports = class TennisPlayer {
         if(playerName === this.name){
             return this.score;
         }
-    }
+    }    
+
 }
