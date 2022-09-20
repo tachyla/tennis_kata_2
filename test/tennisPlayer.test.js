@@ -29,4 +29,11 @@ const TennisPlayer = require('../src/tennisPlayer');
                 new TennisPlayer();
             }).toThrow('Tennis Player requires a name');
         });
+
+        it('throws error when empty string is passed', () => {
+
+            expect(() => {
+                new TennisPlayer("");
+            }).toThrow("Tennis Player requires a name at least 2 characters");
+        });
     });

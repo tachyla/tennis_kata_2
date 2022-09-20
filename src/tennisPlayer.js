@@ -1,7 +1,8 @@
 module.exports = class TennisPlayer {
     constructor(name){
-        if(!name){
-            throw new Error('Tennis Player requires a name');
+        
+        if(!name || name.length <= 1){
+            throw new Error("Tennis Player requires a name at least 2 characters");
         }
 
         this.name = name;
