@@ -1,5 +1,5 @@
 module.exports = class TennisPlayer {
-    constructor(name){
+    constructor(name = this.isRequired()){
         this.name = name;
         this.score = [];
     }
@@ -10,13 +10,9 @@ module.exports = class TennisPlayer {
         }
     }
 
-    handleError(){
-        if(!this.name){
-            let errorMessage = 'Tennis Player requires a name';
-            return errorMessage;
-        }
+    isRequired(name){
+        throw new Error(`Tennis Player requires a name`);
     }
-    
 }
 
 
