@@ -33,11 +33,25 @@ describe('tests game class', () => {
     it('throws error when adding third player', () => {
         let newGame = new Game();
 
-        const add_player1 = newGame.addPlayer('bar');
-        const add_player2 = newGame.addPlayer('bash');
+        newGame.addPlayer('bar');
+        newGame.addPlayer('bash');
         let error_player3 = newGame.addPlayer('foo');
 
         expect(error_player3).toEqual('Error: cannot add a third player');
+
+    });
+
+    describe('tests game scoring', () => {
+        it("a new game score is 'love-all'", () => {
+            let newGame = new Game();
+
+            let result = newGame.getScore(); 
+
+            const expectedScore = 'love all'; 
+
+            expect(result).toEqual(expectedScore);
+
+        })
 
     });
 });

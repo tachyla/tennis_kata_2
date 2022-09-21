@@ -1,6 +1,7 @@
 module.exports = class Game {
-    constructor(players){
+    constructor(){
         this.players = [];
+        this.currentScore = {};
     }
 
     addPlayer = (playerName) => {
@@ -11,5 +12,10 @@ module.exports = class Game {
         else{
             this.players.push({player: playerName});
         }
+    }
+
+    getScore = () => {
+        let scoreResponse = 'love all';
+        return scoreResponse;
     }
 }
