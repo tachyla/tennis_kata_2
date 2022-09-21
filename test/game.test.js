@@ -11,7 +11,7 @@ describe('tests game class', () => {
 
     it('adds 1 player to game', () => {
         let newGame = new Game (); 
-        const add_player = newGame.addPlayer('bar');
+        newGame.addPlayer('bar');
 
         let result = newGame.players;
 
@@ -32,13 +32,13 @@ describe('tests game class', () => {
 
     it('throws error when adding third player', () => {
         let newGame = new Game();
+        let players = ['bar', 'bash', 'foo'];
+        
+        players.forEach((player) =>{newGame.addPlayer(player)});
 
-        newGame.addPlayer('bar');
-        newGame.addPlayer('bash');
-        let error_player3 = newGame.addPlayer('foo');
-
-        expect(error_player3).toEqual('Error: cannot add a third player');
-
+        expect(() => {
+            newGame.addPlayer('foo');
+        }).toThrow('Error: A third player cannot be added');
     });
 
     describe('tests game scoring', () => {

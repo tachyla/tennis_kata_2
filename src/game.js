@@ -5,12 +5,11 @@ module.exports = class Game {
     }
 
     addPlayer = (playerName) => {
-        if(this.players.length === 2){
-            let three_player_error = 'Error: cannot add a third player';
-            return  three_player_error;
+        if(this.players.length <= 2){
+            this.players.push({player: playerName});
         }
         else{
-            this.players.push({player: playerName});
+            throw new Error('Error: A third player cannot be added');
         }
     }
 
