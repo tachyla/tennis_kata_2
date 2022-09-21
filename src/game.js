@@ -17,4 +17,10 @@ module.exports = class Game {
         let scoreResponse = 'love all';
         return scoreResponse;
     }
+
+    advancePlayer(playerString){
+        let player = this.players[0];
+ 
+
+    };
 }

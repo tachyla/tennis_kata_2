@@ -1,4 +1,5 @@
 const Game = require('../src/game');
+const TennisPlayer = require('../src/tennisPlayer');
 
 describe('tests game class', () => {
     it('creates a new game with no players', () => {
@@ -50,8 +51,29 @@ describe('tests game class', () => {
             const expectedScore = 'love all'; 
 
             expect(result).toEqual(expectedScore);
+        });
+        it("increases score of player 1", () => {
+            let newGame = new Game();
+            let players = [];
+            players.push(new TennisPlayer('Jane'));
+            players.push(new TennisPlayer('John'));
 
-        })
+            //players = [
+                //{playerName: 'Jane', score: []}.
+                //{playerName: 'John', score: []},
+            // ];
+            
+            //increase score of player one
+            newGame.advancePlayer("Jane");
+            let result = newGame.players;
+                    
+            let expectedResult = [
+                {playerName: 'Jane', score: 10},
+                {playerName: 'John', score: []}
+            ];
+
+            expect(result).toEqual(expectedResult);
+        });
 
     });
 });
