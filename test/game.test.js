@@ -16,7 +16,7 @@ describe('tests game class', () => {
 
         let result = newGame.players;
 
-        expect(result).toEqual([{player: 'bar'}]);
+        expect(result).toEqual([{name: 'bar', fooScore: []}]);
     });
 
     it('adds 2 players to game', () => {
@@ -26,7 +26,7 @@ describe('tests game class', () => {
        
        let result = newGame.players;
        
-       const expectedResult = [{player: 'bar'}, {player: 'bash'}];
+       const expectedResult = [{name: 'bar', fooScore: []}, {name: 'bash', fooScore: []}];
 
        expect(result).toEqual(expectedResult);
     });
@@ -53,23 +53,22 @@ describe('tests game class', () => {
             expect(result).toEqual(expectedScore);
         });
         it("increases score of player 1", () => {
+            //create game
             let newGame = new Game();
-            let players = [];
-            players.push(new TennisPlayer('Jane'));
-            players.push(new TennisPlayer('John'));
+            //create player
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
 
-            //players = [
-                //{playerName: 'Jane', score: []}.
-                //{playerName: 'John', score: []},
-            // ];
-            
-            //increase score of player one
-            newGame.advancePlayer("Jane");
+            //add player to game
+            newGame.addPlayer(playerJane.name); 
+            console.log(newGame.players[0]);
+           
+            //advance jane score
+            newGame.advancePlayer('Jane');
             let result = newGame.players;
                     
             let expectedResult = [
-                {playerName: 'Jane', score: 10},
-                {playerName: 'John', score: []}
+                {name: 'Jane', fooScore: [10]}
             ];
 
             expect(result).toEqual(expectedResult);
