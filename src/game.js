@@ -2,7 +2,6 @@ const TennisPlayer = require('../src/tennisPlayer');
 module.exports = class Game {
     constructor(){
         this.players = [];
-        this.currentScore = {};
     }
     //initialize player with name & fooScore
     addPlayer = (playerName) => {
@@ -20,11 +19,11 @@ module.exports = class Game {
     }
 
     advancePlayer(player_name){
-        if(player_name === this.players[0].name){
-            let player_currentScore = this.players[0].fooScore //[]
-            player_currentScore.push(10);
-            console.log(player_currentScore);
-            return this.players[0];
+        for(let i = 0; i < this.players.length; i++){
+            if(player_name === this.players[i].name){
+                let player_currentScore = this.players[i].fooScore;
+                player_currentScore.push(10);
+            }
         }
     };
 }

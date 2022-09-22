@@ -57,13 +57,8 @@ describe('tests game class', () => {
             let newGame = new Game();
             //create player
             let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
 
-            //add player to game
-            newGame.addPlayer(playerJane.name); 
-            console.log(newGame.players[0]);
-           
-            //advance jane score
+            newGame.addPlayer(playerJane.name);            
             newGame.advancePlayer('Jane');
             let result = newGame.players;
                     
@@ -74,5 +69,22 @@ describe('tests game class', () => {
             expect(result).toEqual(expectedResult);
         });
 
+        it('increases player 2 score', () => {
+            const newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+
+            newGame.addPlayer('Jane');
+            newGame.addPlayer('John');
+
+            newGame.advancePlayer('John');
+
+            const result = newGame.players;
+
+            const expectedResult = [ {name: 'Jane', fooScore: []}, {name: 'John', fooScore: [10]} ];
+            expect(result).toEqual(expectedResult);
+        });
+
     });
 });
+
