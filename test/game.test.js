@@ -43,6 +43,13 @@ describe('tests game class', () => {
     });
 
     describe('tests game scoring', () => {
+        it('throws error when requesting score for game with 0 players', () => {
+            let newGame = new Game();
+
+            expect(() => {
+                newGame.getScore();
+            }).toThrow('Must add players to game first');
+        });
 
         it("a new game score is 'love-all'", () => {
             let newGame = new Game();

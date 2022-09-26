@@ -16,6 +16,10 @@ module.exports = class Game {
     getScore = (players) => {
         players = this.players;
 
+        if(players.length === 0){
+            throw new Error('Must add players to game first');
+        };
+        
         if(players[0].fooScore[0] === undefined){
             let scoreResponse = 'love all';
             return scoreResponse;
@@ -26,7 +30,6 @@ module.exports = class Game {
             let scoreResponse = '15 - love';
             return scoreResponse;
         }
-
     }
 
     advancePlayer(player_name){
