@@ -39,7 +39,7 @@ module.exports = class Game {
         for(let i = 0; i < this.players.length; i++){
             if(player_name === this.players[i].name){
                 let player_currentScore = this.players[i].fooScore;
-                player_currentScore.push(10);
+                player_currentScore.push(15);
             }
         }
     }

@@ -96,6 +96,8 @@ describe('tests game class', () => {
 
             expect(result).toEqual(expectedResult);
         });
+
+
     });
     describe('advancing players score', () => {
         it("increases score of player 1", () => {
@@ -109,7 +111,7 @@ describe('tests game class', () => {
             let result = newGame.players;
                     
             let expectedResult = [
-                {name: 'Jane', fooScore: [10]}
+                {name: 'Jane', fooScore: [15]}
             ];
     
             expect(result).toEqual(expectedResult);
@@ -127,7 +129,7 @@ describe('tests game class', () => {
     
             const result = newGame.players;
     
-            const expectedResult = [ {name: 'Jane', fooScore: []}, {name: 'John', fooScore: [10]} ];
+            const expectedResult = [ {name: 'Jane', fooScore: []}, {name: 'John', fooScore: [15]} ];
             expect(result).toEqual(expectedResult);
         });
     });
