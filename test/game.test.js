@@ -97,6 +97,22 @@ describe('tests game class', () => {
             expect(result).toEqual(expectedResult);
         });
 
+        it('returns love - 15 when player 2 has scored', () => {
+            let newGame = new Game();
+            
+            //create player 1 && player 2 
+            let playerJane = new TennisPlayer('Jane');
+            newGame.addPlayer(playerJane.name);  
+
+            let playerJohn = new TennisPlayer('John');
+            newGame.addPlayer(playerJohn.name); 
+            
+            //advance player 2  
+            newGame.advancePlayer('John');
+            let result = newGame.getScore(); 
+
+            expect(result).toEqual('love - 15');
+        });
 
     });
     describe('advancing players score', () => {

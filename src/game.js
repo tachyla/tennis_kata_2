@@ -23,9 +23,16 @@ module.exports = class Game {
             throw new Error('Must add 2 players to the game first');
         };
         
+        // check player 1 score  & check player 2 score 
         if(players[0].fooScore[0] === undefined){
-            let scoreResponse = 'love all';
-            return scoreResponse;
+            if(players[1].fooScore[0] === undefined){
+                let scoreResponse = 'love all';
+                return scoreResponse;
+            }
+            if(players[1].fooScore[0] === 15){
+                let scoreResponse = 'love - 15';
+                return scoreResponse;
+            }
         }
         
         else{
