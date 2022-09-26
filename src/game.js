@@ -13,9 +13,20 @@ module.exports = class Game {
         }
     }
 
-    getScore = () => {
-        let scoreResponse = 'love all';
-        return scoreResponse;
+    getScore = (players) => {
+        players = this.players;
+
+        if(players[0].fooScore[0] === undefined){
+            let scoreResponse = 'love all';
+            return scoreResponse;
+        }
+        
+        else{
+            // player1 = 0 && player2 = 0
+            let scoreResponse = '15 - love';
+            return scoreResponse;
+        }
+
     }
 
     advancePlayer(player_name){
@@ -25,5 +36,5 @@ module.exports = class Game {
                 player_currentScore.push(10);
             }
         }
-    };
+    }
 }
