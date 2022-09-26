@@ -18,6 +18,9 @@ module.exports = class Game {
 
         if(players.length === 0){
             throw new Error('Must add players to game first');
+        }
+        if(players.length < 2){
+            throw new Error('Must add 2 players to the game first');
         };
         
         if(players[0].fooScore[0] === undefined){
