@@ -23,21 +23,31 @@ module.exports = class Game {
             throw new Error('Must add 2 players to the game first');
         };
         
-        // check player 1 score  & check player 2 score 
+            //player1 = 0
         if(players[0].fooScore[0] === undefined){
-            if(players[1].fooScore[0] === undefined){
+                //player1 = 0 player2 = 0
+            if(players[1].fooScore[0] === undefined){  
                 let scoreResponse = 'love all';
                 return scoreResponse;
             }
+                //player2 = 15 && player1 = 0
             if(players[1].fooScore[0] === 15){
                 let scoreResponse = 'love - 15';
                 return scoreResponse;
             }
         }
-        
+            // player2 = 0
+        if(players[1].fooScore[0] === undefined){
+            // player1 = 15 && player2 = 0
+            if(players[0].fooScore[0] === 15){
+                let scoreResponse = '15 - love';
+                return scoreResponse;
+            }
+        }
         else{
-            // player1 = 0 && player2 = 0
-            let scoreResponse = '15 - love';
+            let player1 = players[0].fooScore[0];
+            let player2 = players[1].fooScore[0];
+            let scoreResponse = `${player1} - ${player2}`;
             return scoreResponse;
         }
     }

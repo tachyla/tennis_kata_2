@@ -148,6 +148,21 @@ describe('tests game class', () => {
             const expectedResult = [ {name: 'Jane', fooScore: []}, {name: 'John', fooScore: [15]} ];
             expect(result).toEqual(expectedResult);
         });
+
+        it('returns 15 - 15 when both players have scored', () => {
+            let newGame = new Game();
+
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+
+            newGame.advancePlayer('Jane');
+            newGame.advancePlayer('John');
+
+            let result = newGame.getScore();
+            expect(result).toEqual('15 - 15');
+        });
     });
     
 });
