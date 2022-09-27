@@ -16,7 +16,7 @@ describe('tests game class', () => {
 
         let result = newGame.players;
 
-        expect(result).toEqual([{name: 'bar', fooScore: ['love']}]);
+        expect(result).toEqual([{name: 'bar', fooScore: ['love'], score: 0}]);
     });
 
     it('adds 2 players to game', () => {
@@ -26,7 +26,7 @@ describe('tests game class', () => {
        
        let result = newGame.players;
        
-       const expectedResult = [{name: 'bar', fooScore: ['love']}, {name: 'bash', fooScore: ['love']}];
+       const expectedResult = [{name: 'bar', fooScore: ['love'], score: 0}, {name: 'bash', fooScore: ['love'], score: 0}];
 
        expect(result).toEqual(expectedResult);
     });
@@ -127,7 +127,7 @@ describe('tests game class', () => {
             let result = newGame.players; //should call newGame.getScore('Jane') => 15 OR newGame.players[0]
                     
             let expectedResult = [
-                {name: 'Jane', fooScore: ['love', 15]}
+                {name: 'Jane', fooScore: ['love', 15], score: 0}
             ];
     
             expect(result).toEqual(expectedResult);
@@ -156,7 +156,7 @@ describe('tests game class', () => {
             newGame.addPlayer(playerJane.name);
             newGame.addPlayer(playerJohn.name);
     
-            newGame.advancePlayer('Jane');//[love, ]
+            newGame.advancePlayer('Jane');
             newGame.advancePlayer('Jane');
             newGame.advancePlayer('Jane');
             newGame.advancePlayer('Jane');
@@ -188,11 +188,12 @@ describe('tests game class', () => {
             newGame.addPlayer('Jane');
             newGame.addPlayer('John');
     
-            newGame.advancePlayer('John');
-    
+            newGame.advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            
             const result = newGame.players;
     
-            const expectedResult = [ {name: 'Jane', fooScore: ['love']}, {name: 'John', fooScore: ['love', 15]} ];
+            const expectedResult = [{name: 'Jane', fooScore: ['love'], score: 0}, {name: 'John', fooScore: ['love', 15], score: 1}];
             expect(result).toEqual(expectedResult);
         });
 
