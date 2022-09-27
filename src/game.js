@@ -6,7 +6,7 @@ module.exports = class Game {
     //initialize player with name & fooScore
     addPlayer = (playerName) => {
         if(this.players.length <= 2){
-            this.players.push({name: playerName, fooScore: []});
+            this.players.push({name: playerName, fooScore: ['love']});
         }
         else{
             throw new Error('Error: A third player cannot be added');
@@ -23,40 +23,71 @@ module.exports = class Game {
             throw new Error('Must add 2 players to the game first');
         };
         
-            //player1 = 0
-        if(players[0].fooScore[0] === undefined){
+        //player1 = 0 && player2 = 0
+        if(players[0].fooScore.length === 1){
                 //player1 = 0 player2 = 0
-            if(players[1].fooScore[0] === undefined){  
+            if(players[1].fooScore.length === 1 ){  
                 let scoreResponse = 'love all';
                 return scoreResponse;
             }
-                //player2 = 15 && player1 = 0
-            if(players[1].fooScore[0] === 15){
+        }
+        
+        //player1 = [love] && player2 = ['love', 15] 
+        if(players[0].fooScore.length === 1){
+            if(players[1].fooScore.length === 2){
                 let scoreResponse = 'love - 15';
                 return scoreResponse;
             }
         }
-            // player2 = 0
-        if(players[1].fooScore[0] === undefined){
+            // player1 = [love, 15] && player2 = [love]
+        if(players[0].fooScore.length === 2){
             // player1 = 15 && player2 = 0
-            if(players[0].fooScore[0] === 15){
+            if(players[1].fooScore.length === 1){
                 let scoreResponse = '15 - love';
                 return scoreResponse;
             }
         }
+        // player1 = [love, 15] && // player1 = [love, 15]
+        if(players[0].fooScore.length === 2){
+            if(players[1].fooScore.length === 2){
+                let player1_score = players[0].fooScore[1];
+                let player2_score =  players[1].fooScore[1];
+                let scoreResponse = `${player1_score} - ${player2_score}`;
+                return scoreResponse;
+            }
+        }
+        if(players[0].fooScore.length === 3){
+            if(players[1].fooScore.length === 1){
+                let player1_score = players[0].fooScore[2];
+                let player2_score = players[1].fooScore[0];
+                let scoreResponse = `${player1_score} - ${player2_score}`;
+                console.log(scoreResponse);
+                return scoreResponse;
+            }
+        }
         else{
-            let player1 = players[0].fooScore[0];
-            let player2 = players[1].fooScore[0];
-            let scoreResponse = `${player1} - ${player2}`;
+            let player1_score = players[0].fooScore.at(-1);
+            let player2_score = players[1].fooScore(-1);
+            let scoreResponse = `${player1_score} - ${player2_score}`;
             return scoreResponse;
         }
     }
 
-    advancePlayer(player_name){
+    advancePlayer(player_name){ 
+
+        let scorePossibilities = ['love', 15, 30, 40];
+
         for(let i = 0; i < this.players.length; i++){
             if(player_name === this.players[i].name){
                 let player_currentScore = this.players[i].fooScore;
-                player_currentScore.push(15);
+
+                if(player_currentScore.length === 2){
+                        player_currentScore.push(30);
+                }
+                
+                if(player_currentScore.length === 1){
+                    player_currentScore.push(15);
+                }
             }
         }
     }

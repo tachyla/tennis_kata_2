@@ -16,7 +16,7 @@ describe('tests game class', () => {
 
         let result = newGame.players;
 
-        expect(result).toEqual([{name: 'bar', fooScore: []}]);
+        expect(result).toEqual([{name: 'bar', fooScore: ['love']}]);
     });
 
     it('adds 2 players to game', () => {
@@ -26,7 +26,7 @@ describe('tests game class', () => {
        
        let result = newGame.players;
        
-       const expectedResult = [{name: 'bar', fooScore: []}, {name: 'bash', fooScore: []}];
+       const expectedResult = [{name: 'bar', fooScore: ['love']}, {name: 'bash', fooScore: ['love']}];
 
        expect(result).toEqual(expectedResult);
     });
@@ -78,7 +78,7 @@ describe('tests game class', () => {
             expect(result).toEqual(expectedScore);
         });
 
-        it('returns 15 - love when player 1 has scored', () => {
+        it('returns scoreResponse 15 - love when player 1 has scored', () => {
             let newGame = new Game();
             
             //create player 1 && player 2 
@@ -97,7 +97,7 @@ describe('tests game class', () => {
             expect(result).toEqual(expectedResult);
         });
 
-        it('returns love - 15 when player 2 has scored', () => {
+        it('returns scoreResponse love - 15 when player 2 has scored', () => {
             let newGame = new Game();
             
             //create player 1 && player 2 
@@ -124,15 +124,29 @@ describe('tests game class', () => {
     
             newGame.addPlayer(playerJane.name);            
             newGame.advancePlayer('Jane');
-            let result = newGame.players;
+            let result = newGame.players; //should call newGame.getScore('Jane') => 15 OR newGame.players[0]
                     
             let expectedResult = [
-                {name: 'Jane', fooScore: [15]}
+                {name: 'Jane', fooScore: ['love', 15]}
             ];
     
             expect(result).toEqual(expectedResult);
         });
     
+        it('returns 30 - love when player 1 has scored twice', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+            newGame.advancePlayer('Jane');
+            newGame.advancePlayer('Jane');
+            
+            let result = newGame.getScore();
+            expect(result).toEqual('30 - love');
+        });
+
         it('increases player 2 score', () => {
             const newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
@@ -145,11 +159,11 @@ describe('tests game class', () => {
     
             const result = newGame.players;
     
-            const expectedResult = [ {name: 'Jane', fooScore: []}, {name: 'John', fooScore: [15]} ];
+            const expectedResult = [ {name: 'Jane', fooScore: ['love']}, {name: 'John', fooScore: ['love', 15]} ];
             expect(result).toEqual(expectedResult);
         });
 
-        it('returns 15 - 15 when both players have scored', () => {
+        it('returns scoreResponse 15 - 15 when both players have scored', () => {
             let newGame = new Game();
 
             let playerJane = new TennisPlayer('Jane');
@@ -161,8 +175,9 @@ describe('tests game class', () => {
             newGame.advancePlayer('John');
 
             let result = newGame.getScore();
-            expect(result).toEqual('15 - 15');
+            expect(result).toEqual('15 - 15'); 
         });
+
     });
     
 });
