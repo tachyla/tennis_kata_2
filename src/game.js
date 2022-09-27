@@ -67,17 +67,16 @@ module.exports = class Game {
             if(players[1].fooScore.length === 1){
                 let player1_score = players[0].fooScore[3];
                 let player2_score = players[1].fooScore[0];
-                let scoreResponse = `${player1_score} - ${player2_score}`;  
+                let scoreResponse = `${player1_score} - ${player2_score}`;
+                return scoreResponse;
             }
         }
-
     }
 
     advancePlayer(player_name){ 
         for(let i = 0; i < this.players.length; i++){
             if(player_name === this.players[i].name){
                 let player_currentScore = this.players[i].fooScore;
-
                 if(player_currentScore.length === 3){
                     player_currentScore.push(40);
                 }
