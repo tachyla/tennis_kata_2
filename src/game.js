@@ -16,9 +16,6 @@ module.exports = class Game {
     getScore = (players) => {
         players = this.players;
 
-        if(players.length === 0){
-            throw new Error('Must add players to game first');
-        }
         if(players.length < 2){
             throw new Error('Must add 2 players to the game first');
         };
@@ -81,6 +78,7 @@ module.exports = class Game {
     }
 
     advancePlayer(player_name){ 
+                //score possibilities can use map
         for(let i = 0; i < this.players.length; i++){
             if(player_name === this.players[i].name){
                 let player_currentScore = this.players[i].fooScore;

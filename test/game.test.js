@@ -48,7 +48,7 @@ describe('tests game class', () => {
 
             expect(() => {
                 newGame.getScore();
-            }).toThrow('Must add players to game first');
+            }).toThrow('Must add 2 players to the game first');
         });
 
         it('throws error when requesting score for game with 1 player', () => {
@@ -156,7 +156,7 @@ describe('tests game class', () => {
             newGame.addPlayer(playerJane.name);
             newGame.addPlayer(playerJohn.name);
     
-            newGame.advancePlayer('Jane');
+            newGame.advancePlayer('Jane');//[love, ]
             newGame.advancePlayer('Jane');
             newGame.advancePlayer('Jane');
             newGame.advancePlayer('Jane');
