@@ -3,10 +3,10 @@ module.exports = class Game {
     constructor(){
         this.players = [];
     }
-    //initialize player with name & fooScore
+    //initialize player with props name, fooScore, score
     addPlayer = (playerName) => {
         if(this.players.length <= 2){
-            this.players.push({name: playerName, fooScore: ['love']});
+            this.players.push({name: playerName, fooScore: ['love'], score: 0});
         }
         else{
             throw new Error('Error: A third player cannot be added');
@@ -76,7 +76,15 @@ module.exports = class Game {
             }
         }
     }
-
+    //passes in player name; increases score by 1 
+    _advancePlayer(player_name){
+        for(let i = 0; i < this.players.length; i++){
+            if(player_name === this.players[i].name){
+               this.players[i].score++;
+                return this.players[i].score;
+            }
+        }
+    }
     advancePlayer(player_name){ 
                 //score possibilities can use map
         for(let i = 0; i < this.players.length; i++){
