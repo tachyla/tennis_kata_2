@@ -133,6 +133,21 @@ describe('tests game class', () => {
             expect(result).toEqual(expectedResult);
         });
     
+        it('returns 40 - love when player 1 has scored 3 times', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+    
+            newGame.advancePlayer('Jane');
+            newGame.advancePlayer('Jane');
+            newGame.advancePlayer('Jane');
+            
+            let result = newGame.getScore();
+            expect(result).toEqual('40 - love');            
+        });
+
         it('returns 30 - love when player 1 has scored twice', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
@@ -177,8 +192,6 @@ describe('tests game class', () => {
             let result = newGame.getScore();
             expect(result).toEqual('15 - 15'); 
         });
-
-    });
-    
+    }); 
 });
 
