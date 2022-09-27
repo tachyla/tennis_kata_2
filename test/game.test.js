@@ -148,6 +148,24 @@ describe('tests game class', () => {
             expect(result).toEqual('40 - love');            
         });
 
+        it('returns "Player Name wins" when player has 40 and scores', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+    
+            newGame.advancePlayer('Jane');
+            newGame.advancePlayer('Jane');
+            newGame.advancePlayer('Jane');
+            newGame.advancePlayer('Jane');
+
+            let result = newGame.getScore();
+
+            expect(result).toEqual('Jane wins');
+        });
+
         it('returns 30 - love when player 1 has scored twice', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');

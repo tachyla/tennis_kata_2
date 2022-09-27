@@ -71,12 +71,24 @@ module.exports = class Game {
                 return scoreResponse;
             }
         }
+
+        if(players[0].fooScore.length === 5){
+            if(players[1].fooScore.length <= 3){
+                let scoreResponse = players[0].fooScore[4];
+                return scoreResponse;
+            }
+        }
     }
 
     advancePlayer(player_name){ 
         for(let i = 0; i < this.players.length; i++){
             if(player_name === this.players[i].name){
                 let player_currentScore = this.players[i].fooScore;
+
+                if(player_currentScore.length === 4){
+                    player_currentScore.push(`${this.players[i].name} wins`);
+                }
+                
                 if(player_currentScore.length === 3){
                     player_currentScore.push(40);
                 }
