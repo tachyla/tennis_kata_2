@@ -60,19 +60,6 @@ describe('tests game class', () => {
                 newGame._getScore();
             }).toThrow('Must add 2 players to the game first');
         });
-        it("a new game score is 'love-all'", () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            newGame.addPlayer(playerJane.name);
-
-            let playerJohn = new TennisPlayer('John');
-            newGame.addPlayer(playerJohn.name); 
-            
-            let result = newGame._getScore();
-            const expectedScore = 'love all'; 
-
-            expect(result).toEqual(expectedScore);
-        });
 
         it('returns scoreResponse 15 - love when player 1 has scored', () => {
             let newGame = new Game();
@@ -194,7 +181,24 @@ describe('tests game class', () => {
             
         });
 
-        it('returns scoreResponse 15 - 15 when both players have scored', () => {
+    }); 
+
+    describe('case when players have identical scores', () => {
+        it('returns "love-all" for a new games score', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            newGame.addPlayer(playerJane.name);
+
+            let playerJohn = new TennisPlayer('John');
+            newGame.addPlayer(playerJohn.name); 
+            
+            let result = newGame._getScore();
+            const expectedScore = 'love all'; 
+
+            expect(result).toEqual(expectedScore);
+        });
+
+        it('returns  "15 all" when both players have scored', () => {
             let newGame = new Game();
 
             let playerJane = new TennisPlayer('Jane');
@@ -208,10 +212,8 @@ describe('tests game class', () => {
             let result = newGame._getScore();
             expect(result).toEqual('15 all'); 
         });
-    }); 
 
-    describe('case when players have identical scores', () => {
-        it('returns 30 all when both players have have scored', () => {
+        it('returns "30 all" when both players have have scored', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
             let playerJohn = new TennisPlayer('John');
@@ -230,7 +232,7 @@ describe('tests game class', () => {
             expect(result).toEqual('30 all');
         });
 
-        it('returns 40 all when both players have have scored', () => {
+        it('returns "40 all" when both players have have scored', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
             let playerJohn = new TennisPlayer('John');
