@@ -16,7 +16,7 @@ describe('tests game class', () => {
 
         let result = newGame.players;
 
-        expect(result).toEqual([{name: 'bar', fooScore: ['love'], score: 0}]);
+        expect(result).toEqual([{name: 'bar', score: 0}]);
     });
 
     it('adds 2 players to game', () => {
@@ -26,7 +26,7 @@ describe('tests game class', () => {
        
        let result = newGame.players;
        
-       const expectedResult = [{name: 'bar', fooScore: ['love'], score: 0}, {name: 'bash', fooScore: ['love'], score: 0}];
+       const expectedResult = [{name: 'bar', score: 0}, {name: 'bash', score: 0}];
 
        expect(result).toEqual(expectedResult);
     });
@@ -85,8 +85,8 @@ describe('tests game class', () => {
             newGame.addPlayer(playerJohn.name); 
             
             //advance player 1     
-            newGame.advancePlayer('Jane');
-            let result = newGame.getScore(); 
+            newGame._advancePlayer('Jane');
+            let result = newGame._getScore(); 
 
             const expectedResult = '15 - love';
 
@@ -117,10 +117,10 @@ describe('tests game class', () => {
             let playerJane = new TennisPlayer('Jane');
     
             newGame.addPlayer(playerJane.name);            
-            newGame.advancePlayer('Jane');
+            newGame._advancePlayer('Jane');
             let result = newGame.players; 
             let expectedResult = [
-                {name: 'Jane', fooScore: ['love', 15], score: 0}
+                {name: 'Jane', score: 1}
             ];
     
             expect(result).toEqual(expectedResult);
@@ -133,11 +133,11 @@ describe('tests game class', () => {
             newGame.addPlayer(playerJane.name);
             newGame.addPlayer(playerJohn.name);
     
-            newGame.advancePlayer('Jane');
-            newGame.advancePlayer('Jane');
-            newGame.advancePlayer('Jane'); 
+            newGame._advancePlayer('Jane');
+            newGame._advancePlayer('Jane');
+            newGame._advancePlayer('Jane'); 
             
-            let result = newGame.getScore();
+            let result = newGame._getScore();
             expect(result).toEqual('40 - love');            
         });
 
@@ -149,12 +149,12 @@ describe('tests game class', () => {
             newGame.addPlayer(playerJane.name);
             newGame.addPlayer(playerJohn.name);
     
-            newGame.advancePlayer('Jane');
-            newGame.advancePlayer('Jane');
-            newGame.advancePlayer('Jane');
-            newGame.advancePlayer('Jane');
+            newGame._advancePlayer('Jane');
+            newGame._advancePlayer('Jane');
+            newGame._advancePlayer('Jane');
+            newGame._advancePlayer('Jane');
 
-            let result = newGame.getScore();
+            let result = newGame._getScore();
 
             expect(result).toEqual('Jane wins');
         });
@@ -166,10 +166,10 @@ describe('tests game class', () => {
 
             newGame.addPlayer(playerJane.name);
             newGame.addPlayer(playerJohn.name);
-            newGame.advancePlayer('Jane');
-            newGame.advancePlayer('Jane');
+            newGame._advancePlayer('Jane');
+            newGame._advancePlayer('Jane');
             
-            let result = newGame.getScore();
+            let result = newGame._getScore();
             expect(result).toEqual('30 - love');
         });
 
@@ -181,15 +181,16 @@ describe('tests game class', () => {
             newGame.addPlayer('Jane');
             newGame.addPlayer('John');
     
-            newGame.advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
             
             const result = newGame.players;
     
             const expectedResult = [
-                {name: 'Jane', fooScore: ['love'], score: 0}, 
-                {name: 'John', fooScore: ['love', 15], score: 1}];
+                {name: 'Jane', score: 0}, 
+                {name: 'John', score: 1}];
+
             expect(result).toEqual(expectedResult);
+            
         });
 
         it('returns scoreResponse 15 - 15 when both players have scored', () => {
