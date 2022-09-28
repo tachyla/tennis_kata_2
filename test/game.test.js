@@ -104,7 +104,7 @@ describe('tests game class', () => {
             newGame.addPlayer(playerJohn.name); 
             
             //advance player 2  
-            newGame.advancePlayer('John');
+            newGame._advancePlayer('John');
             let result = newGame._getScore(); 
 
             expect(result).toEqual('love - 15');

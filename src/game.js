@@ -4,6 +4,7 @@ module.exports = class Game {
         this.players = [];
     }
 
+    //switch statement can be used to return player score from scoreMap
     scoreMap = {
         0: 'love', 
         1: 15, 
@@ -22,7 +23,8 @@ module.exports = class Game {
             throw new Error('Error: A third player cannot be added');
         }
     }
-
+    
+    //get Score pair from map & relay message 
     getScore = (players) => {
         players = this.players;
 
@@ -36,8 +38,7 @@ module.exports = class Game {
                 let scoreResponse = 'love all';
                 return scoreResponse;
             }
-        }
-        
+        }        
         //player1 = [love] && player2 = ['love', 15] 
         if(players[0].fooScore.length === 1){
             if(players[1].fooScore.length === 2){
@@ -45,7 +46,7 @@ module.exports = class Game {
                 return scoreResponse;
             }
         }
-            // player1 = [love, 15] && player2 = [love]
+        // player1 = [love, 15] && player2 = [love]
         if(players[0].fooScore.length === 2){
             // player1 = 15 && player2 = 0
             if(players[1].fooScore.length === 1){
@@ -87,40 +88,29 @@ module.exports = class Game {
         }
     }
     
-    // get scoreMap value 
+    // get (scoreMap[key]) => value 
     get(key){ 
-        if(key in this.scoreMap){ //true
-            console.log(key in this.scoreMap);
-            console.log(this.scoreMap.key);
+        if(key in this.scoreMap){
+            let valueResponse = this.scoreMap[key];
+            console.log(valueResponse);
+            return valueResponse;
         }
 
-        if(!key) return undefined;
-        
+        if(!key) return undefined; 
     }
 
     _getScore = (players) => {
         players = this.players;
         
-        //switch statement can be used to return player score from scoreMap
-        let scoreMap = {
-            0: 'love', 
-            1: 15, 
-            2: 30, 
-            3: 40
-            // if players[i].score is 4+ duece message is possibility
-        };  
-        //get Score pair from map & relay message 
-        
         if(players.length < 2){
             throw new Error('Must add 2 players to the game first');
         };
         
-        let player1_score = this.players[0].score; // 0
-        let player2_score = this.players[1].score; // 0
+        let player1_score = this.players[0].score;
+        let player2_score = this.players[1].score;
 
-        //pass player1_score into function; return value
-
-        let scoreResponse = `${this.get(player1_score)} - ${player2_score}`;
+        //passes player[i]_score to get function; return score value
+        let scoreResponse = `${this.get(player1_score)} - ${this.get(player2_score)}`;
        
         //compare player1 to player 2      
         if(this.players[0].score === 0){
