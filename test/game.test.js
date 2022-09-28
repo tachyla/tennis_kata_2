@@ -229,6 +229,27 @@ describe('tests game class', () => {
 
             expect(result).toEqual('30 all');
         });
+
+        it('returns 40 all when both players have have scored', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+            
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+
+            let result = newGame._getScore();
+
+            expect(result).toEqual('40 all');
+        });
     });
 });
 
