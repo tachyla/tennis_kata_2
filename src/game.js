@@ -59,6 +59,7 @@ module.exports = class Game {
             let scoreResponse = '30 all';
             return scoreResponse;
         }
+        //Duece === 40 & 40 
         if(player1_score === 3 && player2_score === 3){
             let scoreResponse = '40 all';
             return scoreResponse;

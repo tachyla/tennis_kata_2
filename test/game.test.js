@@ -180,7 +180,6 @@ describe('tests game class', () => {
             expect(result).toEqual(expectedResult);
             
         });
-
     }); 
 
     describe('case when players have identical scores', () => {
@@ -252,6 +251,11 @@ describe('tests game class', () => {
 
             expect(result).toEqual('40 all');
         });
+    });
+
+    describe('players state', () => {
+        it('tests duece cases', () => {});
+        it('tests advantage cases', () => {});
     });
 });
 
