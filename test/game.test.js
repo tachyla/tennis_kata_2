@@ -2,7 +2,7 @@ const Game = require('../src/game');
 const TennisPlayer = require('../src/tennisPlayer');
 
 describe('tests game class', () => {
-    it('creates a new game with no players', () => {
+    xit('creates a new game with no players', () => {
         let newGame = new Game();
 
         let result = newGame.players; 
@@ -10,7 +10,7 @@ describe('tests game class', () => {
         expect(result).toEqual([]);            
     });
 
-    it('adds 1 player to game', () => {
+    xit('adds 1 player to game', () => {
         let newGame = new Game (); 
         newGame.addPlayer('bar');
 
@@ -19,7 +19,7 @@ describe('tests game class', () => {
         expect(result).toEqual([{name: 'bar', fooScore: ['love'], score: 0}]);
     });
 
-    it('adds 2 players to game', () => {
+    xit('adds 2 players to game', () => {
         let newGame = new Game();
        newGame.addPlayer('bar');
        newGame.addPlayer('bash');
@@ -31,7 +31,7 @@ describe('tests game class', () => {
        expect(result).toEqual(expectedResult);
     });
 
-    it('throws error when adding third player', () => {
+    xit('throws error when adding third player', () => {
         let newGame = new Game();
         let players = ['bar', 'bash', 'foo'];
         
@@ -43,38 +43,34 @@ describe('tests game class', () => {
     });
 
     describe('tests game scoring', () => {
-        it('throws error when requesting score for game with 0 players', () => {
+        xit('throws error when requesting score for game with 0 players', () => {
             let newGame = new Game();
 
             expect(() => {
-                newGame.getScore();
+                newGame._getScore();
             }).toThrow('Must add 2 players to the game first');
         });
 
-        it('throws error when requesting score for game with 1 player', () => {
+        xit('throws error when requesting score for game with 1 player', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
             newGame.addPlayer(playerJane.name);
 
             expect(() => {
-                newGame.getScore();
+                newGame._getScore();
             }).toThrow('Must add 2 players to the game first');
         });
-
-        it("a new game score is 'love-all'", () => {
+        xit("a new game score is 'love-all'", () => {
             let newGame = new Game();
-            
-            //create player 1 && player 2 
-
             let playerJane = new TennisPlayer('Jane');
             newGame.addPlayer(playerJane.name);
 
             let playerJohn = new TennisPlayer('John');
             newGame.addPlayer(playerJohn.name); 
             
-            let result = newGame.getScore();
-
+            let result = newGame._getScore();
             const expectedScore = 'love all'; 
+
             expect(result).toEqual(expectedScore);
         });
 
@@ -109,7 +105,7 @@ describe('tests game class', () => {
             
             //advance player 2  
             newGame.advancePlayer('John');
-            let result = newGame.getScore(); 
+            let result = newGame._getScore(); 
 
             expect(result).toEqual('love - 15');
         });
@@ -117,15 +113,12 @@ describe('tests game class', () => {
     });
     describe('advancing players score', () => {
         it("increases score of player 1", () => {
-            //create game
             let newGame = new Game();
-            //create player
             let playerJane = new TennisPlayer('Jane');
     
             newGame.addPlayer(playerJane.name);            
             newGame.advancePlayer('Jane');
-            let result = newGame.players; //should call newGame.getScore('Jane') => 15 OR newGame.players[0]
-                    
+            let result = newGame.players; 
             let expectedResult = [
                 {name: 'Jane', fooScore: ['love', 15], score: 0}
             ];
@@ -193,7 +186,9 @@ describe('tests game class', () => {
             
             const result = newGame.players;
     
-            const expectedResult = [{name: 'Jane', fooScore: ['love'], score: 0}, {name: 'John', fooScore: ['love', 15], score: 1}];
+            const expectedResult = [
+                {name: 'Jane', fooScore: ['love'], score: 0}, 
+                {name: 'John', fooScore: ['love', 15], score: 1}];
             expect(result).toEqual(expectedResult);
         });
 

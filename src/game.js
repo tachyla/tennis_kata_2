@@ -3,6 +3,16 @@ module.exports = class Game {
     constructor(){
         this.players = [];
     }
+
+    scoreMap = {
+        0: 'love', 
+        1: 15, 
+        2: 30, 
+        3: 40
+        // if players[i].score is 4+ duece message is possibility
+    };  
+
+
     //initialize player with props name, fooScore, score
     addPlayer = (playerName) => {
         if(this.players.length <= 2){
@@ -76,6 +86,51 @@ module.exports = class Game {
             }
         }
     }
+    
+    // get scoreMap value 
+    get(key){ 
+        if(key in this.scoreMap){ //true
+            console.log(key in this.scoreMap);
+            console.log(this.scoreMap.key);
+        }
+
+        if(!key) return undefined;
+        
+    }
+
+    _getScore = (players) => {
+        players = this.players;
+        
+        //switch statement can be used to return player score from scoreMap
+        let scoreMap = {
+            0: 'love', 
+            1: 15, 
+            2: 30, 
+            3: 40
+            // if players[i].score is 4+ duece message is possibility
+        };  
+        //get Score pair from map & relay message 
+        
+        if(players.length < 2){
+            throw new Error('Must add 2 players to the game first');
+        };
+        
+        let player1_score = this.players[0].score; // 0
+        let player2_score = this.players[1].score; // 0
+
+        //pass player1_score into function; return value
+
+        let scoreResponse = `${this.get(player1_score)} - ${player2_score}`;
+       
+        //compare player1 to player 2      
+        if(this.players[0].score === 0){
+            if(this.players[1].score === 0){
+                let scoreResponse = 'love all';
+            }
+        }
+        return scoreResponse;
+    }
+
     //passes in player name; increases score by 1 
     _advancePlayer(player_name){
         for(let i = 0; i < this.players.length; i++){
