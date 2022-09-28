@@ -25,68 +25,68 @@ module.exports = class Game {
     }
     
     //get Score pair from map & relay message 
-    getScore = (players) => {
-        players = this.players;
+    // getScore = (players) => {
+    //     players = this.players;
 
-        if(players.length < 2){
-            throw new Error('Must add 2 players to the game first');
-        };
+    //     if(players.length < 2){
+    //         throw new Error('Must add 2 players to the game first');
+    //     };
         
-        //player1 = [love] && player2 = [love]
-        if(players[0].fooScore.length === 1){
-            if(players[1].fooScore.length === 1 ){  
-                let scoreResponse = 'love all';
-                return scoreResponse;
-            }
-        }        
-        //player1 = [love] && player2 = ['love', 15] 
-        if(players[0].fooScore.length === 1){
-            if(players[1].fooScore.length === 2){
-                let scoreResponse = 'love - 15';
-                return scoreResponse;
-            }
-        }
-        // player1 = [love, 15] && player2 = [love]
-        if(players[0].fooScore.length === 2){
-            // player1 = 15 && player2 = 0
-            if(players[1].fooScore.length === 1){
-                let scoreResponse = '15 - love';
-                return scoreResponse;
-            }
-        }
-        // player1 = [love, 15] && // player1 = [love, 15]
-        if(players[0].fooScore.length === 2){
-            if(players[1].fooScore.length === 2){
-                let player1_score = players[0].fooScore[1];
-                let player2_score =  players[1].fooScore[1];
-                let scoreResponse = `${player1_score} - ${player2_score}`;
-                return scoreResponse;
-            }
-        }
-        if(players[0].fooScore.length === 3){
-            if(players[1].fooScore.length === 1){
-                let player1_score = players[0].fooScore[2];
-                let player2_score = players[1].fooScore[0];
-                let scoreResponse = `${player1_score} - ${player2_score}`;
-                return scoreResponse;
-            }
-        }
-        if(players[0].fooScore.length === 4){
-            if(players[1].fooScore.length === 1){
-                let player1_score = players[0].fooScore[3];
-                let player2_score = players[1].fooScore[0];
-                let scoreResponse = `${player1_score} - ${player2_score}`;
-                return scoreResponse;
-            }
-        }
+    //     //player1 = [love] && player2 = [love]
+    //     if(players[0].fooScore.length === 1){
+    //         if(players[1].fooScore.length === 1 ){  
+    //             let scoreResponse = 'love all';
+    //             return scoreResponse;
+    //         }
+    //     }        
+    //     //player1 = [love] && player2 = ['love', 15] 
+    //     if(players[0].fooScore.length === 1){
+    //         if(players[1].fooScore.length === 2){
+    //             let scoreResponse = 'love - 15';
+    //             return scoreResponse;
+    //         }
+    //     }
+    //     // player1 = [love, 15] && player2 = [love]
+    //     if(players[0].fooScore.length === 2){
+    //         // player1 = 15 && player2 = 0
+    //         if(players[1].fooScore.length === 1){
+    //             let scoreResponse = '15 - love';
+    //             return scoreResponse;
+    //         }
+    //     }
+    //     // player1 = [love, 15] && // player1 = [love, 15]
+    //     if(players[0].fooScore.length === 2){
+    //         if(players[1].fooScore.length === 2){
+    //             let player1_score = players[0].fooScore[1];
+    //             let player2_score =  players[1].fooScore[1];
+    //             let scoreResponse = `${player1_score} - ${player2_score}`;
+    //             return scoreResponse;
+    //         }
+    //     }
+    //     if(players[0].fooScore.length === 3){
+    //         if(players[1].fooScore.length === 1){
+    //             let player1_score = players[0].fooScore[2];
+    //             let player2_score = players[1].fooScore[0];
+    //             let scoreResponse = `${player1_score} - ${player2_score}`;
+    //             return scoreResponse;
+    //         }
+    //     }
+    //     if(players[0].fooScore.length === 4){
+    //         if(players[1].fooScore.length === 1){
+    //             let player1_score = players[0].fooScore[3];
+    //             let player2_score = players[1].fooScore[0];
+    //             let scoreResponse = `${player1_score} - ${player2_score}`;
+    //             return scoreResponse;
+    //         }
+    //     }
 
-        if(players[0].fooScore.length === 5){
-            if(players[1].fooScore.length <= 3){
-                let scoreResponse = players[0].fooScore[4];
-                return scoreResponse;
-            }
-        }
-    }
+    //     if(players[0].fooScore.length === 5){
+    //         if(players[1].fooScore.length <= 3){
+    //             let scoreResponse = players[0].fooScore[4];
+    //             return scoreResponse;
+    //         }
+    //     }
+    // }
     
     // get (scoreMap[key]) => value 
     get(key){ 
@@ -106,17 +106,20 @@ module.exports = class Game {
             throw new Error('Must add 2 players to the game first');
         };
         
-        let player1_score = this.players[0].score;
-        let player2_score = this.players[1].score;
+        let player1_score = this.players[0].score; //1: 15
+        let player2_score = this.players[1].score; //1: 15
 
         //passes player[i]_score to get function; return score value
         let scoreResponse = `${this.get(player1_score)} - ${this.get(player2_score)}`;
        
         //compare player1 to player 2      
-        if(this.players[0].score === 0){
-            if(this.players[1].score === 0){
-                let scoreResponse = 'love all';
-            }
+        if(player1_score === 0 && player2_score === 0){
+            let scoreResponse = 'love all';
+            return scoreResponse;
+        }
+        if(player1_score === 1 && player2_score === 1){
+            let scoreResponse = '15 all';
+            return scoreResponse;
         }
         return scoreResponse;
     }

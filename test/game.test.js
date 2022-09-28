@@ -2,7 +2,7 @@ const Game = require('../src/game');
 const TennisPlayer = require('../src/tennisPlayer');
 
 describe('tests game class', () => {
-    xit('creates a new game with no players', () => {
+    it('creates a new game with no players', () => {
         let newGame = new Game();
 
         let result = newGame.players; 
@@ -10,7 +10,7 @@ describe('tests game class', () => {
         expect(result).toEqual([]);            
     });
 
-    xit('adds 1 player to game', () => {
+    it('adds 1 player to game', () => {
         let newGame = new Game (); 
         newGame.addPlayer('bar');
 
@@ -19,7 +19,7 @@ describe('tests game class', () => {
         expect(result).toEqual([{name: 'bar', fooScore: ['love'], score: 0}]);
     });
 
-    xit('adds 2 players to game', () => {
+    it('adds 2 players to game', () => {
         let newGame = new Game();
        newGame.addPlayer('bar');
        newGame.addPlayer('bash');
@@ -31,7 +31,7 @@ describe('tests game class', () => {
        expect(result).toEqual(expectedResult);
     });
 
-    xit('throws error when adding third player', () => {
+    it('throws error when adding third player', () => {
         let newGame = new Game();
         let players = ['bar', 'bash', 'foo'];
         
@@ -43,7 +43,7 @@ describe('tests game class', () => {
     });
 
     describe('tests game scoring', () => {
-        xit('throws error when requesting score for game with 0 players', () => {
+        it('throws error when requesting score for game with 0 players', () => {
             let newGame = new Game();
 
             expect(() => {
@@ -51,7 +51,7 @@ describe('tests game class', () => {
             }).toThrow('Must add 2 players to the game first');
         });
 
-        xit('throws error when requesting score for game with 1 player', () => {
+        it('throws error when requesting score for game with 1 player', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
             newGame.addPlayer(playerJane.name);
@@ -60,7 +60,7 @@ describe('tests game class', () => {
                 newGame._getScore();
             }).toThrow('Must add 2 players to the game first');
         });
-        xit("a new game score is 'love-all'", () => {
+        it("a new game score is 'love-all'", () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
             newGame.addPlayer(playerJane.name);
@@ -200,11 +200,11 @@ describe('tests game class', () => {
             newGame.addPlayer(playerJane.name);
             newGame.addPlayer(playerJohn.name);
 
-            newGame.advancePlayer('Jane');
-            newGame.advancePlayer('John');
+            newGame._advancePlayer('Jane');
+            newGame._advancePlayer('John');
 
-            let result = newGame.getScore();
-            expect(result).toEqual('15 - 15'); 
+            let result = newGame._getScore();
+            expect(result).toEqual('15 all'); 
         });
     }); 
 });
