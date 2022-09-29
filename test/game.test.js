@@ -249,7 +249,7 @@ describe('tests game class', () => {
 
             let result = newGame._getScore();
 
-            expect(result).toEqual('40 all');
+            expect(result).toEqual('duece');
         });
     });
 
