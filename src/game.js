@@ -65,13 +65,29 @@ module.exports = class Game {
             return scoreResponse;
         }
         
-
         if(player1_score > 3 && player2_score < 2){
             let scoreResponse = 'Jane wins';
             return scoreResponse;
         }
-        // if players[i].score is 4+ duece message is possibility
         return scoreResponse;
+    }
+
+    //uses a pair of scores & determines game state
+    checkPlayerState(player1, player2){
+        let playerOne = this.players[0];
+        let playerTwo = this.players[1];
+
+        //player 2 scores advantage point
+        if(playerOne.score === 3 && playerTwo.score > 3){
+            let advantageDifference = 1;
+
+            let playersDifference = playerTwo.score - playerOne.score;
+
+            if(playersDifference === advantageDifference){
+                let playerState = `player 2 advantage`;
+                return playerState;
+            }
+        }
     }
 
     //passes in player name; increases score by 1 

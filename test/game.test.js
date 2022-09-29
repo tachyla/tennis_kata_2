@@ -231,7 +231,7 @@ describe('tests game class', () => {
             expect(result).toEqual('30 all');
         });
 
-        it('returns "40 all" when both players have have scored', () => {
+        it('returns "duece" when both players have have scored', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
             let playerJohn = new TennisPlayer('John');
@@ -253,9 +253,28 @@ describe('tests game class', () => {
         });
     });
 
-    describe('players state', () => {
-        it('tests duece cases', () => {});
-        it('tests advantage cases', () => {});
+    describe('tests game state', () => {
+        it("returns player 2 advantage when player's score difference is 1", () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+            
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+
+           let result = newGame.checkPlayerState(playerJane, playerJohn);
+
+            expect(result).toEqual('player 2 advantage');
+        });
     });
 });
 
