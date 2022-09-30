@@ -23,9 +23,9 @@ module.exports = class Game {
     }
     
     _getScore = (players) => {
-        players = this.players;
         let get = (key) => this.scoreMap[key];
             
+        players = this.players;
 
         if(players.length < 2){
             throw new Error('Must add 2 players to the game first');
@@ -34,11 +34,11 @@ module.exports = class Game {
         let player1_score = this.players[0].score; 
         let player2_score = this.players[1].score;
 
-        bothEqualTo = (score) => {
+        let bothEqualTo = (score) => {
             if(player1_score === score && player2_score === score) return true;
         }
-       
-        if(bothEqualTo(0)) return 'love all';
+        
+        if(bothEqualTo(0))return 'love all';
         
         if(bothEqualTo(1)) return '15 all';
       
