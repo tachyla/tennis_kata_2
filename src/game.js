@@ -23,16 +23,10 @@ module.exports = class Game {
     }
     
     _getScore = (players) => {
-        // can live wihin _getScore
-        let get = (key) => { 
-            if(key in this.scoreMap){
-                let valueResponse = this.scoreMap[key];
-                return valueResponse;
-            }
-             if(!key) return undefined;
-        }
         players = this.players;
-        
+        let get = (key) => this.scoreMap[key];
+            
+
         if(players.length < 2){
             throw new Error('Must add 2 players to the game first');
         };
@@ -40,34 +34,26 @@ module.exports = class Game {
         let player1_score = this.players[0].score; 
         let player2_score = this.players[1].score;
 
-        //passes player[i]_score to get function; return score value
-        let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`;
+        bothEqualTo = (score) => {
+            if(player1_score === score && player2_score === score) return true;
+        }
        
-        //compare player1 to player 2      
-        if(player1_score === 0 && player2_score === 0){
-            let scoreResponse = 'love all';
-            return scoreResponse;
-        }
+        if(bothEqualTo(0)) return 'love all';
         
-        if(player1_score === 1 && player2_score === 1){
-            let scoreResponse = '15 all';
-            return scoreResponse;
-        }      
-        
-        if(player1_score === 2 && player2_score === 2){
-            let scoreResponse = '30 all';
-            return scoreResponse;
-        }
-        //Duece === 40 & 40 
-        if(player1_score === 3 && player2_score === 3){
-            let scoreResponse = 'duece';
-            return scoreResponse;
-        }
+        if(bothEqualTo(1)) return '15 all';
+      
+        if(bothEqualTo(2)) return '30 all';
+    
+        if(bothEqualTo(3)) return 'duece';
+
         
         if(player1_score > 3 && player2_score < 2){
             let scoreResponse = 'Jane wins';
             return scoreResponse;
         }
+
+        //passes player[i]_score to get function; return score value
+        let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`;
         return scoreResponse;
     }
 
