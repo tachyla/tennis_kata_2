@@ -12,7 +12,7 @@ module.exports = class Game {
         3: 40
     };  
 
-    //initialize player with props name, fooScore, score
+    //initialize player with props name & score
     addPlayer = (playerName) => {
         if(this.players.length <= 2){
             this.players.push({name: playerName, score: 0});
@@ -22,16 +22,15 @@ module.exports = class Game {
         }
     }
     
-    // get (scoreMap[key]) => value 
-    get(key){ 
-        if(key in this.scoreMap){
-            let valueResponse = this.scoreMap[key];
-            return valueResponse;
-        }
-        if(!key) return undefined; 
-    }
-
     _getScore = (players) => {
+        // can live wihin _getScore
+        let get = (key) => { 
+            if(key in this.scoreMap){
+                let valueResponse = this.scoreMap[key];
+                return valueResponse;
+            }
+             if(!key) return undefined;
+        }
         players = this.players;
         
         if(players.length < 2){
@@ -42,7 +41,7 @@ module.exports = class Game {
         let player2_score = this.players[1].score;
 
         //passes player[i]_score to get function; return score value
-        let scoreResponse = `${this.get(player1_score)} - ${this.get(player2_score)}`;
+        let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`;
        
         //compare player1 to player 2      
         if(player1_score === 0 && player2_score === 0){

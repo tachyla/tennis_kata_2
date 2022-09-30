@@ -2,6 +2,7 @@ const Game = require('../src/game');
 const TennisPlayer = require('../src/tennisPlayer');
 
 describe('tests game class', () => {
+    //before each tests requires creation of 2 players 
     it('creates a new game with no players', () => {
         let newGame = new Game();
 
@@ -213,12 +214,7 @@ describe('tests game class', () => {
         });
 
         it('returns "30 all" when both players have have scored', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
-
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
+            let { newGame, playerJane, playerJohn } = newFunction();
             
             newGame._advancePlayer(playerJane.name);
             newGame._advancePlayer(playerJane.name);
@@ -229,6 +225,16 @@ describe('tests game class', () => {
             let result = newGame._getScore();
 
             expect(result).toEqual('30 all');
+
+            function newFunction() {
+                let newGame = new Game();
+                let playerJane = new TennisPlayer('Jane');
+                let playerJohn = new TennisPlayer('John');
+
+                newGame.addPlayer(playerJane.name);
+                newGame.addPlayer(playerJohn.name);
+                return { newGame, playerJane, playerJohn };
+            }
         });
 
         it('returns "duece" when both players have have scored', () => {
@@ -239,6 +245,7 @@ describe('tests game class', () => {
             newGame.addPlayer(playerJane.name);
             newGame.addPlayer(playerJohn.name);
             
+            //helper could advance player by x points
             newGame._advancePlayer(playerJane.name);
             newGame._advancePlayer(playerJane.name);
             newGame._advancePlayer(playerJane.name);
