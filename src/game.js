@@ -51,6 +51,9 @@ module.exports = class Game {
         //EACH PLAYER HAS AT LEAST 3 POINTS
         if(player1_score > 3 && player2_score > 3){
             if(player1_score === player2_score) return "duece"; // 4 - 4
+
+            //4 - 5
+            if(player1_score < player2_score) return 'player 2 advantage';
         } 
         else {
             let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`; 
