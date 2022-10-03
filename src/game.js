@@ -36,7 +36,6 @@ module.exports = class Game {
             return (player1_score === score && player2_score === score);
         }
         
-        
         if(bothEqualTo(0))return 'love all';
         
         if(bothEqualTo(1)) return '15 all';
@@ -46,13 +45,17 @@ module.exports = class Game {
         if(bothEqualTo(3)) return 'duece';
 
         if(player1_score >= 4 && player2_score < 2){
-            let scoreResponse = 'Jane wins';
+            return 'Jane wins';
+       }       
+       
+        //EACH PLAYER HAS AT LEAST 3 POINTS
+        if(player1_score > 3 && player2_score > 3){
+            if(player1_score === player2_score) return "duece"; // 4 - 4
+        } 
+        else {
+            let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`; 
             return scoreResponse;
-        }      
-
-        //passes player[i]_score to get function; return score value
-        let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`;
-        return scoreResponse;
+        }   
     }
 
     //uses a pair of scores & determines game state
