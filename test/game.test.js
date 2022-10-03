@@ -261,6 +261,7 @@ describe('tests game class', () => {
     });
 
     describe('tests game state', () => {
+
         it("returns player 2 advantage when player's score difference is 1", () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
@@ -285,7 +286,6 @@ describe('tests game class', () => {
     });
 
     describe('tests advantage state', () => {
-        
         it('returns player 1 advantage', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
@@ -392,6 +392,34 @@ describe('tests game class', () => {
             newGame._advancePlayer(playerJane.name);
             newGame._advancePlayer(playerJane.name);
 
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+
+            let result = newGame._getScore();
+            expect(result).toEqual('duece');
+        });
+
+        it('returns duece when score is 7 - 7', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+
+            newGame._advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
