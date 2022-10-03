@@ -367,8 +367,32 @@ describe('tests game class', () => {
             newGame._advancePlayer(playerJane.name);
             newGame._advancePlayer(playerJane.name);
 
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            let result = newGame._getScore();
+            expect(result).toEqual('duece');
+            
+        });
 
+        it('returns duece when score is 6 - 6', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
 
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+            
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+
+            newGame._advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
