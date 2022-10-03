@@ -352,6 +352,32 @@ describe('tests game class', () => {
             let result = newGame._getScore();
             expect(result).toEqual('player 2 advantage');
         });
+
+        it('returns "duece" when score is 5 - 5', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+            
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+            newGame._advancePlayer(playerJane.name);
+
+
+
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+
+            let result = newGame._getScore();
+            expect(result).toEqual('duece');
+        });
     });
 });
 
