@@ -46,28 +46,24 @@ module.exports = class Game {
 
         //Either PLAYER HAS AT LEAST 3 POINTS
         if(player1_score > 3 || player2_score > 3){
+            // abs value difference  ==
             if(player1_score === player2_score) return "duece"; 
 
-            let difference = player1_score -  player2_score;  
+            let difference = player1_score -  player2_score;
 
             if(Math.abs(difference) >= 2) {
-                if(this.checkDiff(difference)){
-                    return 'player 1 wins';
-                }
-                return 'player 2 wins';
+                return(`${checkLeader(difference)} wins`);
             }
-            
-            if(difference < 0){
-                return 'player 2 advantage';
-            }
-            return 'player 1 advantage';
+            return (`${checkLeader(difference)} advantage`);
         } 
         let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`; 
         return scoreResponse; 
-    }
 
-    checkDiff(difference) {
-        return difference > 0;
+
+        function checkLeader(difference) {
+            if(difference > 0) return "player 1"; //positive
+            return "player 2"; //negative
+        }
     }
 
     _advancePlayer(player_name){
