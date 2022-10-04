@@ -130,24 +130,6 @@ describe('tests game class', () => {
             expect(result).toEqual('40 - love');            
         });
 
-        it('returns "Player Name wins" when player has 40 and scores', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
-
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
-    
-            newGame._advancePlayer('Jane');
-            newGame._advancePlayer('Jane');
-            newGame._advancePlayer('Jane');
-            newGame._advancePlayer('Jane');
-
-            let result = newGame._getScore();
-
-            expect(result).toEqual('Jane wins');
-        });
-
         it('returns 30 - love when player 1 has scored twice', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
@@ -279,7 +261,7 @@ describe('tests game class', () => {
             newGame._advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
 
-           let result = newGame.checkPlayerState(playerJane, playerJohn);
+           let result = newGame._getScore();
 
             expect(result).toEqual('player 2 advantage');
         });
@@ -303,7 +285,7 @@ describe('tests game class', () => {
             newGame._advancePlayer(playerJohn.name);
             newGame._advancePlayer(playerJohn.name);
 
-            let result = newGame.checkPlayerState(playerJane, playerJohn);
+            let result = newGame._getScore();
             expect(result).toEqual('player 1 advantage');
         });
 
@@ -429,6 +411,25 @@ describe('tests game class', () => {
 
             let result = newGame._getScore();
             expect(result).toEqual('duece');
+        });
+
+        it('returns "player 2 wins" when score is 1 - 4', () => {
+            let newGame = new Game();
+            let playerJane = new TennisPlayer('Jane');
+            let playerJohn = new TennisPlayer('John');
+
+            newGame.addPlayer(playerJane.name);
+            newGame.addPlayer(playerJohn.name);
+
+            newGame._advancePlayer(playerJane.name);
+
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+            newGame._advancePlayer(playerJohn.name);
+
+            let result = newGame._getScore(); 
+            expect(result).toEqual('player 2 wins');
         });
     });
 });

@@ -35,7 +35,7 @@ module.exports = class Game {
         let bothEqualTo = (score) => {
             return (player1_score === score && player2_score === score);
         }
-        
+    
         if(bothEqualTo(0))return 'love all';
         
         if(bothEqualTo(1)) return '15 all';
@@ -44,56 +44,32 @@ module.exports = class Game {
     
         if(bothEqualTo(3)) return 'duece';
 
-        if(player1_score >= 4 && player2_score < 2){
-            return 'Jane wins';
-       }       
-       
-        //EACH PLAYER HAS AT LEAST 3 POINTS
-        if(player1_score > 3 && player2_score > 3){
-            if(player1_score === player2_score) return "duece"; // 4 - 4
+        //Either PLAYER HAS AT LEAST 3 POINTS
+        if(player1_score > 3 || player2_score > 3){
+            if(player1_score === player2_score) return "duece"; 
 
-            //4 - 5
-            if(player1_score < player2_score) return 'player 2 advantage';
-        } 
-        else {
-            let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`; 
-            return scoreResponse;
-        }   
-    }
+            let difference = player1_score -  player2_score;  
 
-    //uses a pair of scores & determines game state
-    checkPlayerState(player1, player2){
-        let playerOne = this.players[0];
-        let playerTwo = this.players[1];
-        // check win cases 
-            // 2 < difference 
-
+            if(Math.abs(difference) >= 2) {
+                if(this.checkDiff(difference)){
+                    return 'player 1 wins';
+                }
+                return 'player 2 wins';
+            }
             
-        //player 2 scores advantage point
-        if(playerOne.score === 3 && playerTwo.score > 3){
-            let advantageDifference = 1;
-
-            let playersDifference = playerTwo.score - playerOne.score;
-
-            if(playersDifference === advantageDifference){
+            if(difference < 0){
                 return 'player 2 advantage';
             }
-        }
-
-        //player 1 score advantage point
-        if(playerOne.score > 3 && playerTwo.score === 3){
-            //playerOne.score => //4
-            //playerTwo.score)=> //3
-            let advantageDifference = 1;
-
-            let playersDifference = playerOne.score - playerTwo.score;
-
-            if(playersDifference === advantageDifference){ 
-                return 'player 1 advantage';
-            }
-        }
+            return 'player 1 advantage';
+        } 
+        let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`; 
+        return scoreResponse; 
     }
-    //passes in player name; increases score by 1 
+
+    checkDiff(difference) {
+        return difference > 0;
+    }
+
     _advancePlayer(player_name){
         for(let i = 0; i < this.players.length; i++){
             if(player_name === this.players[i].name){
