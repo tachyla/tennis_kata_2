@@ -46,14 +46,12 @@ module.exports = class Game {
 
         //Either PLAYER HAS AT LEAST 3 POINTS
         if(player1_score > 3 || player2_score > 3){
-            // abs value difference  ==
-            if(player1_score === player2_score) return "duece"; 
-
             let difference = player1_score -  player2_score;
 
-            if(Math.abs(difference) >= 2) {
-                return(`${checkLeader(difference)} wins`);
-            }
+            if(Math.abs(difference) === 0) return "duece"; 
+
+            if(Math.abs(difference) >= 2) return(`${checkLeader(difference)} wins`);
+            
             return (`${checkLeader(difference)} advantage`);
         } 
         let scoreResponse = `${get(player1_score)} - ${get(player2_score)}`; 
