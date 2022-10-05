@@ -217,6 +217,14 @@ describe('testGame creates game & 2 players', () => {
                 expect(result).toEqual('player 1 wins');
             });
 
+            it('returns "player 2 wins" when score is 2 - 4', () => {
+                player_scores(2, 'Jane');
+                player_scores(4, 'John');
+
+                let result = testGame._getScore(); 
+                expect(result).toEqual('player 2 wins');
+            });
+
             it('returns "player 1 wins" when score is 4 - 2', () => {
                 player_scores(4, 'Jane');
                 player_scores(2, 'John');
