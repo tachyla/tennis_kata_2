@@ -209,7 +209,7 @@ describe('testGame creates game & 2 players', () => {
                 expect(result).toEqual('player 2 wins');
             });
 
-            it('returns "player 1 wins" when score is 4 -1', () => {
+            it('returns "player 1 wins" when score is 4 - 1', () => {
                 player_scores(4, 'Jane');
                 player_scores(1, 'John');
 
@@ -223,6 +223,14 @@ describe('testGame creates game & 2 players', () => {
 
                 let result = testGame._getScore(); 
                 expect(result).toEqual('player 1 wins');
+            });
+
+            it('returns "player 2 advantage" when score is 5 - 6', () => {
+                player_scores(5, 'Jane');
+                player_scores(6, 'John');
+
+                let result = testGame._getScore(); 
+                expect(result).toEqual('player 2 advantage');
             });
 
             describe('test invalid score case',() => {
