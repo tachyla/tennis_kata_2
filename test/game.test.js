@@ -225,6 +225,16 @@ describe('testGame creates game & 2 players', () => {
                 expect(result).toEqual('player 1 wins');
             });
 
+            describe('test invalid score case',() => {
+                it('returns "player 1 wins" when score is 5 - 2', () => {
+                    player_scores(5, 'Jane');
+                    player_scores(2, 'John');
+
+                    let result = testGame._getScore(); 
+                    expect(result).toEqual('player 1 wins');
+                });
+            });
+
         });
 
         describe('tests game overtime state', () => {
