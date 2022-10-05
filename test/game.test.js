@@ -213,10 +213,18 @@ describe('testGame creates game & 2 players', () => {
                 player_scores(4, 'Jane');
                 player_scores(1, 'John');
 
+                let result = testGame._getScore(); 
+                expect(result).toEqual('player 1 wins');
+            });
+
+            it('returns "player 1 wins" when score is 4 - 2', () => {
+                player_scores(4, 'Jane');
+                player_scores(2, 'John');
 
                 let result = testGame._getScore(); 
                 expect(result).toEqual('player 1 wins');
             });
+
         });
 
         describe('tests game overtime state', () => {
