@@ -44,7 +44,6 @@ module.exports = class Game {
     
         if(bothEqualTo(3)) return 'duece';
 
-        //Either PLAYER HAS AT LEAST 3 POINTS
         if(player1_score > 3 || player2_score > 3){
             let difference = player1_score -  player2_score;
 
@@ -59,8 +58,8 @@ module.exports = class Game {
 
 
         function checkLeader(difference) {
-            if(difference > 0) return "player 1"; //positive
-            return "player 2"; //negative
+            if(difference > 0) return "player 1"; 
+            return "player 2";
         }
     }
 
