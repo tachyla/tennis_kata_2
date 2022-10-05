@@ -175,9 +175,9 @@ describe('testGame creates game & 2 players', () => {
             });
         });
 
-        describe('tests advantage state', () => {
+        describe('tests Overtime state', () => {
 
-            it('returns "player 1 advantage" when player 1 leads by 1', () => {
+            it('returns "player 1 advantage" when score us 4 - 3', () => {
                 player_scores(4, 'Jane');
                 player_scores(3, 'John');
     
@@ -192,7 +192,16 @@ describe('testGame creates game & 2 players', () => {
                 let result = testGame._getScore();
                 expect(result).toEqual('duece');
             });
-    
+            
+            it('returns "player 2 advantage" when score is 3 - 4', () => {
+                player_scores(3, 'Jane');
+                player_scores(4, 'John');
+
+                let result = testGame._getScore();
+                expect(result).toEqual('player 2 advantage');
+
+            });
+
             it('returns "player 2 advantage" when player 2 leads by 1', () => {
                 player_scores(4, 'Jane');
                 player_scores(5, 'John');
