@@ -1,7 +1,7 @@
 const Game = require('../src/game');
 const TennisPlayer = require('../src/tennisPlayer');
 
-describe('tests game class', () => {
+describe('testGame creates game & 2 players', () => {
     let testGame;
 
     //create players before Each test in this describe block
@@ -15,56 +15,62 @@ describe('tests game class', () => {
     });
 
     describe('tests player creation', () => {
-        it('creates a new game with 0 players', () => {
-            let newGame = new Game();
-    
-            let result = newGame.players; 
+        let myTestGame;
+
+        beforeEach(() => {
+            myTestGame = new Game();
+        });
+
+        it('creates a new game with 0 players', () => {    
+            let result = myTestGame.players; 
     
             expect(result).toEqual([]);            
         });
 
         it('adds 1 player to game', () => {
-            let newGame = new Game (); 
-            newGame.addPlayer('bar');
+            myTestGame.addPlayer('bar');
     
-            let result = newGame.players;
+            let result = myTestGame.players;
     
             expect(result).toEqual([{name: 'bar', score: 0}]);
         });
 
         it('adds 2 players to game', () => {
-            let newGame = new Game();
-           newGame.addPlayer('bar');
-           newGame.addPlayer('bash');
-           
-           let result = newGame.players;
+           myTestGame.addPlayer('bar');
+           myTestGame.addPlayer('bash');
+        
+           let result = myTestGame.players;
            
            const expectedResult = [{name: 'bar', score: 0}, {name: 'bash', score: 0}];
     
            expect(result).toEqual(expectedResult);
         });
+        
+        describe('player creation error case', () => {
+            it('throws error when adding third player', () => {
+                let players = ['bar', 'bash', 'foo'];
+                
+                players.forEach((player) =>{myTestGame.addPlayer(player)});
+        
+                expect(() => {
+                    myTestGame.addPlayer('foo');
+                }).toThrow('Error: A third player cannot be added');
+            });
+        });
 
-        it('throws error when adding third player', () => {
-            let newGame = new Game();
-            let players = ['bar', 'bash', 'foo'];
-            
-            players.forEach((player) =>{newGame.addPlayer(player)});
-    
-            expect(() => {
-                newGame.addPlayer('foo');
-            }).toThrow('Error: A third player cannot be added');
+        describe('tests scoring error state', () => {
+            it('throws error when requesting score for game with 0 players', () => {
+                // let newGame = new Game();
+        
+                expect(() => {
+                    myTestGame._getScore();
+                }).toThrow('Must add 2 players to the game first');
+            });
         });
     });
 
     describe('tests scoring functionality', () => {
-        it('throws error when requesting score for game with 0 players', () => {
-            let newGame = new Game();
-
-            expect(() => {
-                newGame._getScore();
-            }).toThrow('Must add 2 players to the game first');
-        });
-
+        // this error case only needs a new game
         it('throws error when requesting score for game with 1 player', () => {
             let newGame = new Game();
             let playerJane = new TennisPlayer('Jane');
@@ -75,38 +81,18 @@ describe('tests game class', () => {
             }).toThrow('Must add 2 players to the game first');
         });
 
-        it('returns scoreResponse 15 - love when player 1 has scored', () => {
-            let newGame = new Game();
-            
-            //create player 1 && player 2 
-            let playerJane = new TennisPlayer('Jane');
-            newGame.addPlayer(playerJane.name);  
-
-            let playerJohn = new TennisPlayer('John');
-            newGame.addPlayer(playerJohn.name); 
-            
-            //advance player 1     
-            newGame._advancePlayer('Jane');
-            let result = newGame._getScore(); 
+        it('returns "15 - love" when score is 1 - 0', () => {   
+            testGame._advancePlayer('Jane');
+            let result = testGame._getScore(); 
 
             const expectedResult = '15 - love';
 
             expect(result).toEqual(expectedResult);
         });
 
-        it('returns scoreResponse love - 15 when player 2 has scored', () => {
-            let newGame = new Game();
-            
-            //create player 1 && player 2 
-            let playerJane = new TennisPlayer('Jane');
-            newGame.addPlayer(playerJane.name);  
-
-            let playerJohn = new TennisPlayer('John');
-            newGame.addPlayer(playerJohn.name); 
-            
-            //advance player 2  
-            newGame._advancePlayer('John');
-            let result = newGame._getScore(); 
+        it('returns "love - 15" when score is 0 - 1', () => {
+            testGame._advancePlayer('John');
+            let result = testGame._getScore(); 
 
             expect(result).toEqual('love - 15');
         });
@@ -157,106 +143,63 @@ describe('tests game class', () => {
             let result = testGame._getScore();
             expect(result).toEqual('30 - love');
         });
-
     }); 
 
-    describe('case when players have identical scores', () => {
+    describe('tests when players have identical scores', () => {
         it('returns "love-all" for a new games score', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            newGame.addPlayer(playerJane.name);
-
-            let playerJohn = new TennisPlayer('John');
-            newGame.addPlayer(playerJohn.name); 
-            
-            let result = newGame._getScore();
+            let result = testGame._getScore();
             const expectedScore = 'love all'; 
 
             expect(result).toEqual(expectedScore);
         });
 
-        it('returns  "15 all" when both players have scored', () => {
-            let newGame = new Game();
+        it('returns "15 all" when both players have scored', () => {
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('John');
 
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
-
-            newGame._advancePlayer('Jane');
-            newGame._advancePlayer('John');
-
-            let result = newGame._getScore();
+            let result = testGame._getScore();
             expect(result).toEqual('15 all'); 
         });
 
         it('returns "30 all" when both players have have scored', () => {
-            let { newGame, playerJane, playerJohn } = newFunction();
-            
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            let result = newGame._getScore();
+            let result = testGame._getScore();
 
             expect(result).toEqual('30 all');
-
-            function newFunction() {
-                let newGame = new Game();
-                let playerJane = new TennisPlayer('Jane');
-                let playerJohn = new TennisPlayer('John');
-
-                newGame.addPlayer(playerJane.name);
-                newGame.addPlayer(playerJohn.name);
-                return { newGame, playerJane, playerJohn };
-            }
         });
 
-        it('returns "duece" when both players have have scored', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
-
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
-            
+        it('returns "duece" when scored is 3 - 3 ', () => {
             //helper could advance player by x points
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
 
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            let result = newGame._getScore();
+            let result = testGame._getScore();
 
             expect(result).toEqual('duece');
         });
     });
 
     describe('tests game state', () => {
-
         it("returns player 2 advantage when player's score difference is 1", () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
 
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
-            
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-
-           let result = newGame._getScore();
+           let result = testGame._getScore();
 
             expect(result).toEqual('player 2 advantage');
         });
@@ -265,166 +208,117 @@ describe('tests game class', () => {
     describe('tests advantage state', () => {
 
         it('returns player 1 advantage', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
 
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-
-            let result = newGame._getScore();
+            let result = testGame._getScore();
             expect(result).toEqual('player 1 advantage');
         });
 
         it('returns duece when players have score 3 or more', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
 
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
-            
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-
-            
-            let result = newGame._getScore();
+            let result = testGame._getScore();
             expect(result).toEqual('duece');
         });
+
         it('returns player 2 advantage when score is 4 - 5', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
-
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
-            
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
 
 
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            let result = newGame._getScore();
+            let result = testGame._getScore();
             expect(result).toEqual('player 2 advantage');
         });
 
         it('returns "duece" when score is 5 - 5', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
 
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
-            
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            let result = newGame._getScore();
+            let result = testGame._getScore();
             expect(result).toEqual('duece');
-            
         });
 
         it('returns duece when score is 6 - 6', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
 
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
-            
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-
-            let result = newGame._getScore();
+            let result = testGame._getScore();
             expect(result).toEqual('duece');
         });
 
         it('returns duece when score is 7 - 7', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
+            testGame._advancePlayer('Jane');
 
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-            newGame._advancePlayer(playerJane.name);
-
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-
-            let result = newGame._getScore();
+            let result = testGame._getScore();
             expect(result).toEqual('duece');
         });
 
         it('returns "player 2 wins" when score is 1 - 4', () => {
-            let newGame = new Game();
-            let playerJane = new TennisPlayer('Jane');
-            let playerJohn = new TennisPlayer('John');
+            testGame._advancePlayer('Jane');
 
-            newGame.addPlayer(playerJane.name);
-            newGame.addPlayer(playerJohn.name);
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
+            testGame._advancePlayer('John');
 
-            newGame._advancePlayer(playerJane.name);
-
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-            newGame._advancePlayer(playerJohn.name);
-
-            let result = newGame._getScore(); 
+            let result = testGame._getScore(); 
             expect(result).toEqual('player 2 wins');
         });
     });
